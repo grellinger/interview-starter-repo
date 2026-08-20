@@ -1,0 +1,15 @@
+---
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: interview-starter-repo
+  title: Interview Starter Repo
+  description: >-
+    This repo is the starting point for technical interview. This repo will be shared with the candidates prior to the interview so the candidate can set it up and run it in local. This will set the baseline for the interview and candidates will be asked to problem solve on top of this starter repo
+  annotations:
+    github.com/project-slug: wwg-internal/interview-starter-repo
+spec:
+  type: service
+  owner: matching.legacy-x-match-app-team
+  domain: MATCHING
+  lifecycle: production

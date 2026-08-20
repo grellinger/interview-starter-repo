@@ -1,0 +1,17 @@
+# OS
+.DS_Store
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Java / Maven
+target/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+*.log
+.env.local

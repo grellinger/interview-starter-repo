@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: products-api
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+  flyway:
+    locations: classpath:/db/migration
+    schemas: public
+    baselineOnMigrate: true
+    enabled: true
+  datasource:
+    driverClassName: org.postgresql.Driver
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:productdb}?currentSchema=public
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:password}

@@ -1,7 +1,6 @@
 # Product List — Technical Interview Baseline
 
-A small full-stack application: a **Next.js (App Router + TypeScript)** frontend talking to a
-**Spring Boot (Java 21)** API backed by **PostgreSQL**. It lists products and lets you add one.
+A **Spring Boot (Java 21)** API backed by **PostgreSQL**. It lists products and lets you add one.
 
 This repo is the **starting point for your technical pairing session** — you only need to get it
 running before the interview. We'll extend it together, live. Please **feel free to use AI coding
@@ -10,27 +9,18 @@ agents/harnesses (GitHub Copilot, Cursor, Claude Code, etc.)** during the sessio
 ## Architecture
 
 ```
-Browser ──▶ Next.js frontend (:3000)
-                │  BFF route: /api/products  (src/app/api/products)
-                ▼
-           Spring Boot API (:8080)  ──▶  PostgreSQL (:5432)
+   Spring Boot API (:8080)  ──▶  PostgreSQL (:5432)
 ```
-
-The browser never calls the backend directly — the Next.js **backend-for-frontend (BFF)** route
-brokers the call server-side.
 
 ## Tech stack
 
-- **Frontend:** Next.js (App Router), React, TypeScript, TanStack React Query (data fetching),
-  Formik + Yup (form + validation), Sass (CSS Modules)
-- **Backend:** Java 21, Spring Boot, Spring Data JPA, Flyway (migrations)
+- **API:** Java 21, Spring Boot, Spring Data JPA, Flyway (migrations)
 - **Database:** PostgreSQL
 
 ## Prerequisites
 
 - **Docker** (for Postgres) — or a local Postgres if you prefer
 - **Java 21+** and Maven (the included `./mvnw` wrapper works)
-- **Node.js 18.18+** and npm
 
 ## Getting started
 
@@ -56,7 +46,7 @@ This starts Postgres on `localhost:5432` with database `productdb` (user `postgr
 >   cd products-api && DB_PORT=5433 ./mvnw spring-boot:run   # backend connects to 5433
 >   ```
 
-### 2. Start the backend (Spring Boot)
+### 2. Start the API (Spring Boot)
 
 ```bash
 cd products-api
@@ -70,18 +60,6 @@ Verify:
 
 ```bash
 curl http://localhost:8080/api/products
-```
-
-### 3. Start the frontend (Next.js)
-
-```bash
-cd product-list-ui
-cp .env.local.example .env.local   # optional; only if backend isn't on localhost:8080
-npm install
-npm run dev
-```
-
-Open **http://localhost:3000**.
 
 ## API
 
@@ -90,35 +68,9 @@ Open **http://localhost:3000**.
 | GET    | `/api/products` | List all products   |
 | POST   | `/api/products` | Create a product (`{ "name", "brand", "price" }`) |
 
-## Project structure
-
-```
-.
-├── docker-compose.yml          # PostgreSQL for local dev
-├── products-api/               # Spring Boot backend
-│   └── src/main/
-│       ├── java/.../products_api/
-│       │   ├── controller/     # ProductController (REST)
-│       │   ├── service/        # ProductService(+Impl)
-│       │   ├── repository/     # Spring Data JPA repo
-│       │   └── model/          # Product entity + ProductDTO (record)
-│       └── resources/
-│           ├── application.yml
-│           └── db/migration/   # Flyway migrations (schema + seed)
-└── product-list-ui/            # Next.js frontend
-    └── src/
-        ├── app/
-        │   ├── page.tsx            # Products page (React Query)
-        │   ├── layout.tsx
-        │   ├── providers.tsx       # React Query provider
-        │   └── api/products/       # BFF route → Spring API
-        ├── components/             # ProductList, ProductCard, AddProduct (Formik/Yup)
-        └── lib/                    # types + client fetchers
-```
 
 ## Troubleshooting
 
 - **Backend can't connect to DB:** ensure `docker compose up -d` is running (`docker ps`), or point
   the `DB_*` env vars at your own Postgres.
-- **Frontend can't reach the API:** confirm the backend is up on :8080, or set `SPRING_API_URL` in
-  `product-list-ui/.env.local`.
+

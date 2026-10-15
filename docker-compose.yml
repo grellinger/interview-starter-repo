@@ -1,6 +1,6 @@
 services:
   postgres:
-    image: ${DOCKER_REGISTRY:-graingerinc.jfrog.io/docker-shared-virtual}/postgres:16-alpine
+    image: ${DOCKER_REGISTRY:-docker.io/library}/postgres:16-alpine
     container_name: products-postgres
     environment:
       POSTGRES_DB: productdb
